@@ -1,6 +1,7 @@
 #ifndef HGS_LISTA_H_INCLUDED
 #define HGS_LISTA_H_INCLUDED
 
+#include <cassert>
 #include <iostream>
 using namespace std;
 
@@ -108,11 +109,11 @@ HGS_Lista<T>::HGS_Lista(){
 template <class T>
 void HGS_Lista<T>::insertaElementoAntes(HGS_ElementoLista<T> * it, HGS_ElementoLista<T> * elemento){
 
-    if (elemento==NULL || elemento->lista!=NULL) return;
+    assert(elemento!=NULL);
+    assert(elemento->lista==NULL);
+    assert(it==NULL || it->lista==this);
 
     if (it!=NULL){
-        if (it->lista!=this) return;
-
         HGS_ElementoLista<T> * izq= it->ant;
         elemento->sig= it;
         elemento->ant= izq;
@@ -128,16 +129,18 @@ void HGS_Lista<T>::insertaElementoAntes(HGS_ElementoLista<T> * it, HGS_ElementoL
         this->insertarElementoInicio(elemento);
     }
 
+    elemento->lista= this;
+
 }
 
 template <class T>
 void HGS_Lista<T>::insertaElementoDespues(HGS_ElementoLista<T> * it, HGS_ElementoLista<T> * elemento){
 
-    if (elemento==NULL || elemento->lista!=NULL) return;
+    assert(elemento!=NULL);
+    assert(elemento->lista==NULL);
+    assert(it==NULL || it->lista==this);
 
     if (it!=NULL){
-        if (it->lista!=this) return;
-
         HGS_ElementoLista<T> * der= it->sig;
         elemento->sig= der;
         elemento->ant= it;
@@ -153,10 +156,15 @@ void HGS_Lista<T>::insertaElementoDespues(HGS_ElementoLista<T> * it, HGS_Element
         this->insertarElementoFinal(elemento);
     }
 
+    elemento->lista= this;
+
 }
 
 template <class T>
 void HGS_Lista<T>::insertarElementoInicio(HGS_ElementoLista<T> * elemento){
+
+    assert(elemento!=NULL);
+    assert(elemento->lista==NULL);
 
     if (this->primerElemento==NULL){
         this->primerElemento= elemento;
@@ -170,10 +178,15 @@ void HGS_Lista<T>::insertarElementoInicio(HGS_ElementoLista<T> * elemento){
     elemento->ant= NULL;
     this->numElementos++;
 
+    elemento->lista= this;
+
 }
 
 template <class T>
 void HGS_Lista<T>::insertarElementoFinal(HGS_ElementoLista<T> * elemento){
+
+    assert(elemento!=NULL);
+    assert(elemento->lista==NULL);
 
     if (this->primerElemento==NULL){
         this->primerElemento= elemento;
@@ -187,12 +200,15 @@ void HGS_Lista<T>::insertarElementoFinal(HGS_ElementoLista<T> * elemento){
     elemento->sig= NULL;
     this->numElementos++;
 
+    elemento->lista= this;
+
 }
 
 template <class T>
 void HGS_Lista<T>::extraerElemento(HGS_ElementoLista<T> * elemento){
 
-    if (elemento->lista!=this) return;
+    assert(elemento!=NULL);
+    assert(elemento->lista==this);
 
     elemento= this->primerElemento;
     HGS_ElementoLista<T> * izq= elemento->ant;
@@ -211,6 +227,8 @@ void HGS_Lista<T>::extraerElemento(HGS_ElementoLista<T> * elemento){
     }
 
     this->numElementos--;
+
+    elemento->lista= NULL;
 
     return elemento;
 
