@@ -42,6 +42,8 @@ template <class T> class HGS_Lista{
         void insertarElementoInicio(HGS_ElementoLista<T> * elemento);
         void insertarElementoFinal(HGS_ElementoLista<T> * elemento);
         void extraerElemento(HGS_ElementoLista<T> * elemento);
+        HGS_ElementoLista<T> * extraerElementoInicio();
+        HGS_ElementoLista<T> * extraerElementoFinal();
 
 };
 
@@ -233,5 +235,30 @@ void HGS_Lista<T>::extraerElemento(HGS_ElementoLista<T> * elemento){
     return elemento;
 
 }
+
+template <class T>
+HGS_ElementoLista<T> * HGS_Lista<T>::extraerElementoInicio(){
+
+    HGS_ElementoLista<T> * extraer= this->primerElemento;
+    if (extraer!=NULL)
+        this->extraerElemento(extraer);
+
+    return extraer;
+
+}
+
+template <classT>
+HGS_ElementoLista<T> * HGS_Lista<T>::extraerElementoFinal(){
+
+    HGS_ElementoLista<T> * extraer= this->ultimoElemento;
+    if (extraer!=NULL)
+        this->extraerElemento(extraer);
+
+    return extraer;
+
+}
+
+
+
 
 #endif // HGS_LISTA_H_INCLUDED
