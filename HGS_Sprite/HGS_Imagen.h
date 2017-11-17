@@ -10,25 +10,22 @@
 #include <iostream>
 using namespace std;
 
-
+#include "../HGS_Ventana/HGS_Ventana.h"
+#include <SDL2/SDL.h>
 
 class HGS_Imagen{
 
     private:
 
         HGS_Ventana * ventana;
-        int maxAnimaciones;
-        int * maxImagenes;
-        SDL_Texture *** imagenes;
+        SDL_Texture * imagen;
 
 
     public:
 
         HGS_Imagen(char * carpeta, HGS_Ventana * ventana);
         ~HGS_Imagen();
-        int cogerNumAnimaciones();
-        int cogerNumImagenes(int animacion);
-        void dibuja(double x, double y, double w, double h, int animacion, int imagen);
+        void dibuja(double x, double y, double w, double h);
 
 };
 
